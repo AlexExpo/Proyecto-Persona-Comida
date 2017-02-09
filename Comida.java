@@ -11,14 +11,17 @@ public class Comida
     
     private int valorCalorifico;
     
+    private String nombre;
+    
     
     /**
      * Constructor for objects of class Comida
      */
-    public Comida(String nombre, int calorias)
+    public Comida(String nombreDeLaComida, int calorias)
     {
         // initialise instance variables
         valorCalorifico = calorias;
+        nombre = nombreDeLaComida;
     }
     
     public int getCalorias()
@@ -26,4 +29,8 @@ public class Comida
         return valorCalorifico;
     }
     
+    public String getNombre()
+    {
+        return nombre;
+    }
 }

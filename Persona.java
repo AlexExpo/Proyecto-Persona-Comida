@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.ArrayList;
 /**
  * Write a description of class Persona here.
  * 
@@ -13,6 +13,8 @@ public class Persona
     private int calorias;
     
     private String nombre;
+    
+    private ArrayList<Comida> listaDeComidaIngerida;
     
     private static final int LONGITUD_PALABRA = 3;
 
@@ -30,6 +32,7 @@ public class Persona
         }
         calorias = 0;
         nombre = nombreDeLaPersona;
+        listaDeComidaIngerida = new ArrayList<Comida>();
     }
     
     /**
@@ -43,6 +46,7 @@ public class Persona
         if (metabolismo >= calorias) {
             caloriasIngeridas = comida.getCalorias();
             calorias = calorias + comida.getCalorias();
+            listaDeComidaIngerida.add(comida);
         }
         return caloriasIngeridas;
     }
@@ -82,6 +86,38 @@ public class Persona
             }
         }
         return texto;
+    }
+    
+    public String getAlimentoMasCaloricoConsumido()
+    {
+        Comida comidaActual = null;
+        String nombreADevolver = null;
+        for (Comida comida : listaDeComidaIngerida) {
+            if (comidaActual == null) {
+                comidaActual = comida;
+                nombreADevolver = comidaActual.getNombre();
+            }
+            else {
+                if (comidaActual.getCalorias() <= comida.getCalorias()) {
+                    comidaActual = comida;
+                    nombreADevolver = comidaActual.getNombre();
+                }
+            }
+        }
+        if (comidaActual == null) {
+            System.out.println("La persona aun no ha comido nada.");
+        }
+        else {
+            System.out.println(nombreADevolver);
+        }
+        return nombreADevolver;
+    }
+    
+    public void verListadoComidasIngeridas()
+    {
+        for (Comida comida : listaDeComidaIngerida) {
+            
+        }
     }
 }
 
