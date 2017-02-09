@@ -146,6 +146,18 @@ public class PersonaTest
         assertEquals("¿TE LLAMAS LUIS?", persona2.contestar("¿Te llamas Luis?"));          
         
     }
+    
+    @Test
+    public void TestgetAlimentoMasCaloricoConsumido()
+    {
+        Persona persona3 = new Persona("Maria", false, 45, 140, 20);
+        assertEquals(269, persona1.comer(comida5));
+        assertEquals(1200, persona1.comer(comida2));
+        assertEquals(600, persona1.comer(comida3));
+        assertEquals(-1, persona1.comer(comida4));
+        assertEquals("Pizza", persona1.getAlimentoMasCaloricoConsumido());
+        assertEquals(null, persona3.getAlimentoMasCaloricoConsumido());
+    }
 
 }
 
