@@ -1,4 +1,4 @@
-
+import java.util.Scanner;
 /**
  * Write a description of class Persona here.
  * 
@@ -11,11 +11,15 @@ public class Persona
     private int metabolismo;
     
     private int calorias;
+    
+    private String nombre;
+    
+    private static final int LONGITUD_PALABRA = 3;
 
     /**
      * Constructor for objects of class Persona
      */
-    public Persona(String nombre, boolean hombre, int pesoEnKilogramos, int alturaEnCentimetros, int edad)
+    public Persona(String nombreDeLaPersona, boolean hombre, int pesoEnKilogramos, int alturaEnCentimetros, int edad)
     {
         // initialise instance variables
         if (hombre) {
@@ -25,6 +29,7 @@ public class Persona
             metabolismo = (10 * pesoEnKilogramos) + (6 * alturaEnCentimetros) + (5 * edad) - 161;
         }
         calorias = 0;
+        nombre = nombreDeLaPersona;
     }
     
     /**
@@ -42,14 +47,41 @@ public class Persona
         return caloriasIngeridas;
     }
     
+    /**
+     * Metodo que devuelve las calorias que tiene las persona.
+     */
     public int getCaloriasIngeridas()
     {
         return calorias;
     }
     
-    public void contestar()
+    /**
+     * Metodo que permite preguntar a la persona algo, si no ha 
+     * sobrepasado su metabolismo basal, te contestará "SI" o "NO" 
+     * dependiendo de si la pregunta tiene una longitud divisible por 3 
+     * o no, respectivamente.
+     * En caso de que la persona ya haya sobrepasado el metabolismo basal 
+     * o en el caso de que tu pregunta contenga el nombre de la persona, 
+     * responderá con la misma pregunta que le has hecho pero en mayusculas 
+     * indiferentemente de la longitud de a pregunta.
+     */
+    public String contestar(String texto)
     {
-        
+        if (metabolismo < calorias || texto.contains(nombre)) {
+            System.out.println(texto.toUpperCase());
+            texto = texto.toUpperCase();
+        }
+        if (metabolismo >= calorias && !texto.contains(nombre)) {
+            if (texto.length() % LONGITUD_PALABRA == 0) {
+                System.out.println("SI");
+                texto = "SI";
+            }
+            else    {
+                System.out.println("NO");
+                texto = "NO";
+            }
+        }
+        return texto;
     }
 }
 
