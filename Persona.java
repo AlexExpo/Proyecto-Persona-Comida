@@ -16,6 +16,8 @@ public class Persona
     
     private ArrayList<Comida> listaDeComidaIngerida;
     
+    private Comida comidaConMasCalorias;
+    
     private static final int LONGITUD_PALABRA = 3;
 
     /**
@@ -33,6 +35,7 @@ public class Persona
         calorias = 0;
         nombre = nombreDeLaPersona;
         listaDeComidaIngerida = new ArrayList<Comida>();
+        comidaConMasCalorias = null;
     }
     
     /**
@@ -88,6 +91,14 @@ public class Persona
         return texto;
     }
     
+    /**
+     * Este metodo imprime por pantalla y que devuelve
+     * el nombre de la comida más calórico ingerida hasta
+     * ahora por un usuario. En caso de que la persona no haya
+     * comido nada el método infoma por pantalla de tal situación 
+     * y devuelve null. En caso de que haya empate entre dos 
+     * o más comidas, imprime y devuelve la última de ellas.
+     */
     public String getAlimentoMasCaloricoConsumido()
     {
         Comida comidaActual = null;
@@ -96,11 +107,13 @@ public class Persona
             if (comidaActual == null) {
                 comidaActual = comida;
                 nombreADevolver = comidaActual.getNombre();
+                comidaConMasCalorias = comida;
             }
             else {
                 if (comidaActual.getCalorias() <= comida.getCalorias()) {
                     comidaActual = comida;
                     nombreADevolver = comidaActual.getNombre();
+                    comidaConMasCalorias = comida;
                 }
             }
         }
@@ -113,12 +126,26 @@ public class Persona
         return nombreADevolver;
     }
     
+    /**
+     * Este metodo no devuelve nada y imprime por pantalla 
+     * la lista de comidas ingeridas ordenadas de mayor a menor
+     * valor calórico. En el listado debe mostrarse el nombre de 
+     * la comida y su valor calórico. En caso de que la persona 
+     * no haya ingerido aun comida el método debe indicarlo por pantalla.
+     */
     public void verListadoComidasIngeridas()
     {
-        for (Comida comida : listaDeComidaIngerida) {
-            
+        while (listaDeComidaIngerida.size() > 0) {
+            getAlimentoMasCaloricoConsumido();
+            System.out.println("Nombre de la comida: " + comidaConMasCalorias.getNombre() + ". Valor calorifico: " + comidaConMasCalorias.getCalorias() + ".");
+            int contador = 0;
+            while (listaDeComidaIngerida.get(contador).getNombre().contains(comidaConMasCalorias.getNombre())) {
+                listaDeComidaIngerida.remove(contador);
+            }
+            contador++;
         }
     }
+    
 }
 
 
